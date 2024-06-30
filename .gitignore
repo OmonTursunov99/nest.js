@@ -1,2 +1,7 @@
 .idea
-starter/node_modules
+.DS_Store
+*/env
+*/package-lock.json
+*/dist
+*/node_modules
+*/build
