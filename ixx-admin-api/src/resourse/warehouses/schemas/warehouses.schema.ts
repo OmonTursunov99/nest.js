@@ -1,13 +1,14 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from 'mongoose';
-import { Mixins } from "../../mixins";
+import { TimezoneProvider } from "../../../providers/timezone.provider";
 
 export type WarehousesDocuments = Warehouses & Document;
 
-const mixins = new Mixins();
 
 @Schema()
 export class Warehouses {
+    timezoneProvider = new TimezoneProvider;
+
     @Prop({ required: true })
     name: string;
 
@@ -17,11 +18,11 @@ export class Warehouses {
     @Prop({ default: [] })
     connectedShopsId: number[];
 
-    @Prop({ default: () => mixins.timeZone()})
-    createdAt: Date;
+    @Prop({ default: null })
+    createdAt: [ Object ];
 
-    @Prop({ default: null})
-    updatedAt: [Object | Date];
+    @Prop({ default: null })
+    updatedAt: [ Object ];
 }
 
 export const WarehousesSchema = SchemaFactory.createForClass(Warehouses);

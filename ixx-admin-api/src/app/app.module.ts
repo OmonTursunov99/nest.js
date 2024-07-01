@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { WarehousesModule } from "../warehouses/warehouses.module";
+import { WarehousesModule } from "../resourse/warehouses/warehouses.module";
 
 const URI = "mongodb+srv://omon-api:Bt8psnt4@db-nest-v2.nx7beun.mongodb.net/?retryWrites=true&w=majority&appName=db-nest-v2";
 const API_CONNECT = "92.63.204.89/32";

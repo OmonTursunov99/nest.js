@@ -4,16 +4,15 @@ import { Model } from 'mongoose';
 import { CreateWarehouseDto } from './dto/create-warehouse.dto';
 import { UpdateWarehouseDto } from './dto/update-warehouse.dto';
 import { Warehouses, WarehousesDocuments } from "./schemas/warehouses.schema";
-import { Mixins } from "../mixins";
-
-const mixins = new Mixins();
+import { TimezoneProvider } from "../../providers/timezone.provider";
 
 
 @Injectable()
 export class WarehousesService {
-    constructor(@InjectModel(Warehouses.name) private warehouseModel: Model<WarehousesDocuments>) {
-
-    }
+    constructor(
+        @InjectModel(Warehouses.name) private warehouseModel: Model<WarehousesDocuments>,
+        private timezoneProvider: TimezoneProvider,
+    ) {}
 
     async create(createWarehouseDto: CreateWarehouseDto) {
         const newElement = new this.warehouseModel(createWarehouseDto);
@@ -29,8 +28,7 @@ export class WarehousesService {
     }
 
     async update(id: string, updateWarehouseDto: UpdateWarehouseDto): Promise<Warehouses> {
-        updateWarehouseDto.updatedAt = mixins.formatTimeZone();
-        updateWarehouseDto.createdAt = undefined;
+        updateWarehouseDto.updatedAt = this.timezoneProvider.getMomentTz();
 
         console.info("updateWarehouseDto", updateWarehouseDto);
 
